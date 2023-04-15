@@ -1,6 +1,7 @@
 package com.learnspring.ProductService.serviceImpl;
 
 import com.learnspring.ProductService.entity.Product;
+import com.learnspring.ProductService.exception.ProductServiceCustomException;
 import com.learnspring.ProductService.model.ProductRequest;
 import com.learnspring.ProductService.model.ProductResponse;
 import com.learnspring.ProductService.repository.ProductRepository;
@@ -38,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
         log.info("Inside getProductById method in repository ");
         Product product=
                 productRepository.findById(productId)
-                        .orElseThrow(()->new RuntimeException("Product with given id not found"));
+                        .orElseThrow(()->new ProductServiceCustomException("Product with given Id not Exists","ERROR101"));
 
         ProductResponse productResponse =
                 new ProductResponse();
