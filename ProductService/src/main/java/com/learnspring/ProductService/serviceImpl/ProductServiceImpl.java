@@ -2,11 +2,14 @@ package com.learnspring.ProductService.serviceImpl;
 
 import com.learnspring.ProductService.entity.Product;
 import com.learnspring.ProductService.model.ProductRequest;
+import com.learnspring.ProductService.model.ProductResponse;
 import com.learnspring.ProductService.repository.ProductRepository;
 import com.learnspring.ProductService.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.beans.BeanUtils.*;
 
 @Service
 @Log4j2
@@ -28,5 +31,20 @@ public class ProductServiceImpl implements ProductService {
 
         log.info("Product save successfully ");
         return product.getProductId();
+    }
+
+    @Override
+    public ProductResponse getProductById(Long productId) {
+        log.info("Inside getProductById method in repository ");
+        Product product=
+                productRepository.findById(productId)
+                        .orElseThrow(()->new RuntimeException("Product with given id not found"));
+
+        ProductResponse productResponse =
+                new ProductResponse();
+        copyProperties(product,productResponse); //if all the field all same then it work || BeanUtils.copyProperties(product,productResponse);
+
+
+        return productResponse;
     }
 }
