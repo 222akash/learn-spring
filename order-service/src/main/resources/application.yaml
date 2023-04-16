@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/productdb
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,9 +12,10 @@ spring:
     hibernate:
       ddl-auto: update
   application:
-    name: PRODUCT-SERVICE
+    name: ORDER-SERVICE
   config:
     import: configserver:http://localhost:9296
+
 #eureka:
 #  instance:
 #    prefer-ip-address: true
@@ -22,5 +23,5 @@ spring:
 #    fetch-registry: true
 #    register-with-eureka: true
 #    service-url:
-#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:9296/eureka}
-
+#      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+#
